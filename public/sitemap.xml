@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-written. There is no sitemap integration: update this file whenever a
+     route is added. -->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://phoebeogorman.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phoebeogorman.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://phoebeogorman.com/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phoebeogorman.com/" />
+  </url>
+  <url>
+    <loc>https://phoebeogorman.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phoebeogorman.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://phoebeogorman.com/es/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phoebeogorman.com/" />
+  </url>
+  <url>
+    <loc>https://phoebeogorman.com/store/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phoebeogorman.com/store/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://phoebeogorman.com/es/store/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phoebeogorman.com/store/" />
+  </url>
+  <url>
+    <loc>https://phoebeogorman.com/es/store/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://phoebeogorman.com/store/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://phoebeogorman.com/es/store/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://phoebeogorman.com/store/" />
+  </url>
+</urlset>

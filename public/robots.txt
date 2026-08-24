@@ -1,0 +1,9 @@
+# TODO: remove the blanket Disallow before launch, together with the noindex
+# meta tag in src/layouts/Layout.astro.
+#
+# The site is still a Coming Soon placeholder. Letting search engines index it
+# now would leave stale results to clean up later.
+User-agent: *
+Disallow: /
+
+Sitemap: https://phoebeogorman.com/sitemap.xml
