@@ -1,20 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ComingSoon from "../components/ComingSoon.astro";
-import { localeStorePath, t } from "../i18n/translations";
+import PageShell from "../components/PageShell.astro";
+import Gallery from "../components/Gallery.astro";
 
 const locale = "en" as const;
-const strings = t(locale);
 ---
 
 <Layout locale={locale} canonicalPath="/" englishPath="/" spanishPath="/es/">
-  <ComingSoon
-    locale={locale}
-    kicker={strings.home_kicker}
-    title={strings.home_title}
-    intro={strings.home_intro}
-    linkHref={localeStorePath(locale)}
-    linkLabel={strings.home_cta_store}
-    alternateHref="/es/"
-  />
+  <PageShell locale={locale} alternateHref="/es/">
+    <Gallery locale={locale} />
+  </PageShell>
 </Layout>

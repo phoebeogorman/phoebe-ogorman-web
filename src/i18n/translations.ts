@@ -24,11 +24,20 @@ export interface Translations {
   skip_to_content: string;
   logo_alt: string;
 
-  // Home
+  // Home — hero
   home_kicker: string;
   home_title: string;
   home_intro: string;
   home_cta_store: string;
+
+  // Home — bio
+  bio_kicker: string;
+  bio_heading: string;
+  bio_body: string;
+
+  // Home — gallery
+  gallery_heading: string;
+  gallery_image_alt_prefix: string;
 
   // Store
   store_kicker: string;
@@ -61,9 +70,9 @@ export const contact = {
 
 export const translations: Record<Locale, Translations> = {
   en: {
-    meta_title: "Phoebe O'Gorman — Coming soon",
+    meta_title: "Phoebe O'Gorman — Fashion Designer",
     meta_description:
-      "A new fashion brand. The first collection arrives Spring Summer 2027.",
+      "London-based fashion designer specialising in bespoke tailored jackets and coats.",
     store_meta_title: "Store — Phoebe O'Gorman",
     store_meta_description:
       "The Phoebe O'Gorman store is opening soon.",
@@ -71,11 +80,19 @@ export const translations: Record<Locale, Translations> = {
     skip_to_content: "Skip to content",
     logo_alt: "Phoebe O'Gorman",
 
-    home_kicker: "A new brand",
-    home_title: "Coming soon",
+    home_kicker: "Fashion designer",
+    home_title: "Phoebe O'Gorman",
     home_intro:
-      "The first collection arrives Spring Summer 2027. In the meantime, you are welcome to get in touch.",
+      "Tailored outerwear made with intention. Each piece begins as a conversation about fit, fabric, and the way a garment should feel.",
     home_cta_store: "Store",
+
+    bio_kicker: "About",
+    bio_heading: "Craft before everything",
+    bio_body:
+      "Phoebe O'Gorman is a London-based fashion designer specialising in bespoke tailored jackets and coats. Trained in pattern cutting and garment construction, she works one piece at a time — from the first toile to the finished seam. Her work sits at the intersection of structure and softness: precise silhouettes built to be worn, not just admired.",
+
+    gallery_heading: "The collection",
+    gallery_image_alt_prefix: "Jacket by Phoebe O'Gorman",
 
     store_kicker: "Store",
     store_title: "Opening Soon",
@@ -93,20 +110,28 @@ export const translations: Record<Locale, Translations> = {
   },
 
   es: {
-    meta_title: "Phoebe O'Gorman — Próximamente",
+    meta_title: "Phoebe O'Gorman — Diseñadora de moda",
     meta_description:
-      "Una nueva marca de moda. La primera colección llega en Spring Summer 2027.",
+      "Diseñadora de moda afincada en Londres, especializada en chaquetas y abrigos a medida.",
     store_meta_title: "Tienda — Phoebe O'Gorman",
     store_meta_description: "La tienda de Phoebe O'Gorman abrirá pronto.",
 
     skip_to_content: "Saltar al contenido",
     logo_alt: "Phoebe O'Gorman",
 
-    home_kicker: "Una nueva marca",
-    home_title: "Próximamente",
+    home_kicker: "Diseñadora de moda",
+    home_title: "Phoebe O'Gorman",
     home_intro:
-      "La primera colección llega en Spring Summer 2027. Mientras tanto, puedes escribirnos.",
+      "Ropa de abrigo hecha con intención. Cada pieza comienza con una conversación sobre el ajuste, la tela y la manera en que una prenda debe sentirse.",
     home_cta_store: "Tienda",
+
+    bio_kicker: "Sobre Phoebe",
+    bio_heading: "El oficio primero",
+    bio_body:
+      "Phoebe O'Gorman es diseñadora de moda afincada en Londres, especializada en chaquetas y abrigos a medida. Formada en patronaje y confección, trabaja pieza a pieza — desde el primer prototipo hasta la costura final. Su trabajo se sitúa en la intersección entre estructura y suavidad: siluetas precisas pensadas para llevarse, no sólo para admirarse.",
+
+    gallery_heading: "La colección",
+    gallery_image_alt_prefix: "Chaqueta de Phoebe O'Gorman",
 
     store_kicker: "Tienda",
     store_title: "Apertura próxima",
