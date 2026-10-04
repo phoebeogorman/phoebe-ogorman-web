@@ -16,6 +16,8 @@ interface Props {
   spanishPath: string;
   title?: string;
   description?: string;
+  /** Keeps utility pages, such as the newsletter confirmation, out of search. */
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +27,7 @@ const {
   spanishPath,
   title,
   description,
+  noindex = false,
 } = Astro.props;
 
 const strings = t(locale);
@@ -86,10 +89,7 @@ const jsonLd = {
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonicalUrl} />
 
-    {/* TODO: remove before launch, together with the rules in public/robots.txt.
-        The site is a Coming Soon placeholder and there is nothing worth
-        indexing yet. */}
-    <meta name="robots" content="noindex, nofollow" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="alternate" hreflang="en" href={englishUrl} />
     <link rel="alternate" hreflang="es" href={spanishUrl} />
