@@ -1,0 +1,206 @@
+---
+/**
+ * Newsletter signup, posted directly to MailerLite's embedded form endpoint.
+ *
+ * The action URL and hidden field are copied from the MailerLite HTML embed
+ * (Signup form -> Embed -> HTML). The request is sent with `fetch` instead of
+ * a native form submission so the visitor never leaves the page or lands on
+ * the raw JSON response: the script below swaps in a success or error panel
+ * styled like the rest of the site. MailerLite's endpoint sends
+ * `access-control-allow-origin: *`, so the cross-origin fetch is allowed.
+ *
+ * The list has double opt-in enabled (MailerLite's own anti-spam / GDPR
+ * safeguard), so a successful POST here only means MailerLite accepted the
+ * address, not that it is confirmed yet. There is no way to detect the
+ * confirmation click from a static site without a backend or an API key, so
+ * the success message tells the visitor to check their inbox instead.
+ */
+import type { Locale } from "../i18n/translations";
+import { newsletter, t } from "../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const strings = t(locale);
+---
+
+<div class="newsletter" data-newsletter>
+  <div class="newsletter-intro-panel" data-newsletter-panel="form">
+    <h2 class="newsletter-heading">{strings.newsletter_heading}</h2>
+    <p class="newsletter-intro">{strings.newsletter_intro}</p>
+
+    <form class="newsletter-form" data-newsletter-form novalidate>
+      <label class="newsletter-label" for="newsletter-email">
+        {strings.newsletter_email_label}
+      </label>
+      <div class="newsletter-row">
+        <input
+          id="newsletter-email"
+          class="newsletter-input"
+          type="email"
+          name="fields[email]"
+          placeholder={strings.newsletter_email_placeholder}
+          autocomplete="email"
+          required
+        />
+        <button type="submit" class="newsletter-submit">
+          <span data-newsletter-submit-label>{strings.newsletter_submit}</span>
+        </button>
+      </div>
+      <p class="newsletter-error" data-newsletter-error hidden></p>
+    </form>
+  </div>
+
+  <div class="newsletter-success-panel" data-newsletter-panel="success" hidden>
+    <h2 class="newsletter-heading">{strings.newsletter_success_heading}</h2>
+    <p class="newsletter-intro">{strings.newsletter_success_body}</p>
+  </div>
+</div>
+
+<script define:vars={{
+  action: newsletter.action,
+  submitLabel: strings.newsletter_submit,
+  submittingLabel: strings.newsletter_submitting,
+  genericError: strings.newsletter_error_generic,
+}}>
+  const root = document.currentScript.previousElementSibling;
+  const form = root.querySelector("[data-newsletter-form]");
+  const formPanel = root.querySelector('[data-newsletter-panel="form"]');
+  const successPanel = root.querySelector('[data-newsletter-panel="success"]');
+  const submitButton = form.querySelector(".newsletter-submit");
+  const submitLabelEl = form.querySelector("[data-newsletter-submit-label]");
+  const errorEl = form.querySelector("[data-newsletter-error]");
+  const emailInput = form.querySelector("#newsletter-email");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    errorEl.hidden = true;
+    submitButton.disabled = true;
+    submitLabelEl.textContent = submittingLabel;
+
+    try {
+      const response = await fetch(action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new URLSearchParams({
+          "fields[email]": emailInput.value,
+          "ml-submit": "1",
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (response.ok && data && data.success) {
+        formPanel.hidden = true;
+        successPanel.hidden = false;
+        return;
+      }
+
+      const fieldErrors = data && data.errors && data.errors.fields;
+      const message = fieldErrors
+        ? Object.values(fieldErrors).flat().join(" ")
+        : genericError;
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    } catch (error) {
+      errorEl.textContent = genericError;
+      errorEl.hidden = false;
+    } finally {
+      submitButton.disabled = false;
+      submitLabelEl.textContent = submitLabel;
+    }
+  });
+</script>
+
+<style>
+  .newsletter-heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.05em;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .newsletter-intro {
+    font-size: 0.9375rem;
+    line-height: 1.35em;
+    color: var(--text-secondary);
+    max-width: 40ch;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 26rem;
+  }
+
+  .newsletter-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .newsletter-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .newsletter-input::placeholder {
+    color: var(--text-secondary);
+  }
+
+  .newsletter-input:focus-visible {
+    border-color: var(--text-primary);
+  }
+
+  .newsletter-submit {
+    flex-shrink: 0;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--background);
+    background: var(--text-primary);
+    border: 1px solid var(--text-primary);
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .newsletter-submit:hover {
+    opacity: 0.8;
+  }
+
+  .newsletter-submit:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+
+  .newsletter-error {
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+    margin: 0.25rem 0 0 0;
+  }
+
+  @media (max-width: 420px) {
+    .newsletter-row {
+      flex-direction: column;
+    }
+  }
+</style>

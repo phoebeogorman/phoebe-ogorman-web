@@ -168,6 +168,9 @@ p {
   font-size: clamp(2.5rem, 6.5vw, 4.5rem);
   line-height: 1em;
   letter-spacing: -0.02em;
+  /* Bodoni Moda has an optical-size axis: at large sizes the hairlines turn
+     almost invisible. A low opsz keeps them sturdy without changing weight. */
+  font-variation-settings: "opsz" 14;
 }
 
 .kicker {

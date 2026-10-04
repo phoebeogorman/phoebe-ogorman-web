@@ -1,4 +1,5 @@
 ---
+import NewsletterForm from "./NewsletterForm.astro";
 import type { Locale } from "../i18n/translations";
 import { contact, t } from "../i18n/translations";
 
@@ -17,29 +18,45 @@ const switcherHref = `${alternateHref}?lang=${altLocale}`;
 ---
 
 <div class="page">
-  <header class="site-header po-container">
-    <img
-      src="/images/logo-phoebe-ogorman.webp"
-      srcset="/images/logo-phoebe-ogorman.webp 1x, /images/logo-phoebe-ogorman@2x.webp 2x"
-      alt={strings.logo_alt}
-      width="180"
-      height="78"
-      class="site-logo"
-    />
-    <a href={switcherHref} class="lang-switch" aria-label={strings.language_switch_label}>
-      {strings.language_switch_text}
-    </a>
-  </header>
+  {/* Header and hero are grouped in one 100svh block so the hero always
+      fills exactly the first viewport, whatever the header's rendered
+      height turns out to be: flexbox distributes the space, no fixed or
+      calc()-derived header height to keep in sync. */}
+  <div class="viewport-hero">
+    <header class="site-header po-container">
+      <img
+        src="/images/logo-phoebe-ogorman.webp"
+        srcset="/images/logo-phoebe-ogorman.webp 1x, /images/logo-phoebe-ogorman@2x.webp 2x"
+        alt={strings.logo_alt}
+        width="180"
+        height="78"
+        class="site-logo"
+      />
+      <a href={switcherHref} class="lang-switch" aria-label={strings.language_switch_label}>
+        {strings.language_switch_text}
+      </a>
+    </header>
 
-  <main id="main-content" aria-labelledby="hero-heading">
     <section class="hero po-container" aria-labelledby="hero-heading">
       <p class="kicker">{strings.home_kicker}</p>
       <h1 id="hero-heading" class="display-title hero-title">{strings.home_title}</h1>
+      <p class="hero-subtitle">{strings.home_subtitle}</p>
       <p class="copy hero-intro">{strings.home_intro}</p>
-      <a href={`mailto:${contact.email}`} class="hero-cta">{strings.coming_soon_note}</a>
+      <p class="copy hero-intro">{strings.home_intro_secondary}</p>
+      <NewsletterForm locale={locale} />
     </section>
+  </div>
 
+  <main id="main-content" aria-labelledby="hero-heading">
     <slot />
+
+    <section class="retailers po-container" aria-labelledby="retailers-heading">
+      <h2 id="retailers-heading" class="retailers-heading">{strings.retailers_heading}</h2>
+      <p class="copy">{strings.retailers_body}</p>
+      <a href={`mailto:${contact.email}?subject=Wholesale`} class="footer-link retailers-cta">
+        {strings.retailers_cta}
+      </a>
+    </section>
   </main>
 
   <footer class="site-footer po-container">
@@ -57,12 +74,21 @@ const switcherHref = `${alternateHref}?lang=${altLocale}`;
 
 <style>
   .page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Fills exactly the first viewport: header takes its natural height and
+     the hero (flex: 1 below) claims the rest, so there is no calc() to keep
+     in sync with the header's own padding and logo clamps. */
+  .viewport-hero {
     min-height: 100svh;
     display: flex;
     flex-direction: column;
   }
 
   .site-header {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,15 +120,24 @@ const switcherHref = `${alternateHref}?lang=${altLocale}`;
   }
 
   .hero {
-    padding-top: clamp(3rem, 8vw, 6rem);
-    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    flex: 1;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1.25rem;
   }
 
   .hero-title {
     max-width: 14ch;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 500;
+    line-height: 1.2em;
+    color: var(--text-primary);
   }
 
   .hero-intro {
@@ -121,6 +156,24 @@ const switcherHref = `${alternateHref}?lang=${altLocale}`;
 
   .hero-cta:hover {
     opacity: 0.55;
+  }
+
+  .retailers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    border-top: 1px solid var(--border);
+  }
+
+  .retailers-heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.05em;
+    letter-spacing: -0.015em;
+    margin: 0;
   }
 
   .site-footer {

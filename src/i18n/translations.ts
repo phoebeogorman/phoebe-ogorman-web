@@ -27,13 +27,15 @@ export interface Translations {
   // Home — hero
   home_kicker: string;
   home_title: string;
+  home_subtitle: string;
   home_intro: string;
+  home_intro_secondary: string;
   home_cta_store: string;
 
-  // Home — bio
-  bio_kicker: string;
-  bio_heading: string;
-  bio_body: string;
+  // Home — retailers
+  retailers_heading: string;
+  retailers_body: string;
+  retailers_cta: string;
 
   // Home — gallery
   gallery_heading: string;
@@ -45,9 +47,27 @@ export interface Translations {
   store_intro: string;
   store_back_home: string;
 
+  // Newsletter confirmation landing page
+  confirmed_meta_title: string;
+  confirmed_meta_description: string;
+  confirmed_kicker: string;
+  confirmed_title: string;
+  confirmed_intro: string;
+
   // Coming soon
   coming_soon_label: string;
   coming_soon_note: string;
+
+  // Newsletter signup
+  newsletter_heading: string;
+  newsletter_intro: string;
+  newsletter_email_label: string;
+  newsletter_email_placeholder: string;
+  newsletter_submit: string;
+  newsletter_submitting: string;
+  newsletter_success_heading: string;
+  newsletter_success_body: string;
+  newsletter_error_generic: string;
 
   // Footer
   footer_rights: string;
@@ -68,11 +88,24 @@ export const contact = {
   instagramHandle: "@phoebeogorman",
 } as const;
 
+/**
+ * MailerLite embedded form endpoint.
+ *
+ * MailerLite's own embed HTML posts to dashboard.mailerlite.com, but that
+ * host answers with a 301 redirect to assets.mailerlite.com. Browsers turn a
+ * redirected POST into a GET, which drops the form body and the API then
+ * reports the email field as missing. Posting straight to the assets host
+ * skips the redirect and keeps the POST body intact.
+ */
+export const newsletter = {
+  action: "https://assets.mailerlite.com/jsonp/2637449/forms/198701218312226400/subscribe",
+} as const;
+
 export const translations: Record<Locale, Translations> = {
   en: {
-    meta_title: "Phoebe O'Gorman — Fashion Designer",
+    meta_title: "Phoebe O'Gorman — Designed in Lancashire",
     meta_description:
-      "London-based fashion designer specialising in bespoke tailored jackets and coats.",
+      "Phoebe O'Gorman is an independent fashion label rooted in considered design, quality craftsmanship and thoughtful garment construction. A new collection is in development.",
     store_meta_title: "Store — Phoebe O'Gorman",
     store_meta_description:
       "The Phoebe O'Gorman store is opening soon.",
@@ -80,18 +113,20 @@ export const translations: Record<Locale, Translations> = {
     skip_to_content: "Skip to content",
     logo_alt: "Phoebe O'Gorman",
 
-    home_kicker: "Fashion designer",
+    home_kicker: "Designed in Lancashire",
     home_title: "Phoebe O'Gorman",
+    home_subtitle: "A new collection in development",
     home_intro:
-      "Tailored outerwear made with intention. Each piece begins as a conversation about fit, fabric, and the way a garment should feel.",
+      "Phoebe O'Gorman is an independent fashion label rooted in considered design, quality craftsmanship and thoughtful garment construction.",
+    home_intro_secondary:
+      "The first collection is currently in development and will be released in limited quantities through selected retailers and online.",
     home_cta_store: "Store",
 
-    bio_kicker: "About",
-    bio_heading: "Craft before everything",
-    bio_body:
-      "Phoebe O'Gorman is a London-based fashion designer specialising in bespoke tailored jackets and coats. Trained in pattern cutting and garment construction, she works one piece at a time — from the first toile to the finished seam. Her work sits at the intersection of structure and softness: precise silhouettes built to be worn, not just admired.",
+    retailers_heading: "Retailers & Stockists",
+    retailers_body: "Interested in stocking Phoebe O'Gorman?",
+    retailers_cta: "Enquire about wholesale",
 
-    gallery_heading: "The collection",
+    gallery_heading: "Gallery",
     gallery_image_alt_prefix: "Jacket by Phoebe O'Gorman",
 
     store_kicker: "Store",
@@ -100,8 +135,27 @@ export const translations: Record<Locale, Translations> = {
       "The store is not open yet. Pieces will be listed here once the collection is ready.",
     store_back_home: "Back",
 
+    confirmed_meta_title: "Subscription confirmed — Phoebe O'Gorman",
+    confirmed_meta_description: "Your newsletter subscription is confirmed.",
+    confirmed_kicker: "Newsletter",
+    confirmed_title: "You're on the list",
+    confirmed_intro:
+      "Thank you for confirming your email. You'll hear from us as soon as there's news.",
+
     coming_soon_label: "In preparation",
     coming_soon_note: "Get in touch",
+
+    newsletter_heading: "Register your interest",
+    newsletter_intro:
+      "Be the first to hear about the collection, launch and availability.",
+    newsletter_email_label: "Email address",
+    newsletter_email_placeholder: "Email",
+    newsletter_submit: "Register your interest",
+    newsletter_submitting: "Sending…",
+    newsletter_success_heading: "Almost there",
+    newsletter_success_body:
+      "Check your inbox and confirm your email to complete your subscription.",
+    newsletter_error_generic: "Something went wrong. Please try again.",
 
     footer_rights: "All rights reserved.",
 
@@ -110,27 +164,29 @@ export const translations: Record<Locale, Translations> = {
   },
 
   es: {
-    meta_title: "Phoebe O'Gorman — Diseñadora de moda",
+    meta_title: "Phoebe O'Gorman — Diseñado en Lancashire",
     meta_description:
-      "Diseñadora de moda afincada en Londres, especializada en chaquetas y abrigos a medida.",
+      "Phoebe O'Gorman es una firma de moda independiente basada en el diseño meditado, la artesanía de calidad y la construcción cuidadosa de cada prenda. Una nueva colección está en desarrollo.",
     store_meta_title: "Tienda — Phoebe O'Gorman",
     store_meta_description: "La tienda de Phoebe O'Gorman abrirá pronto.",
 
     skip_to_content: "Saltar al contenido",
     logo_alt: "Phoebe O'Gorman",
 
-    home_kicker: "Diseñadora de moda",
+    home_kicker: "Diseñado en Lancashire",
     home_title: "Phoebe O'Gorman",
+    home_subtitle: "Una nueva colección en desarrollo",
     home_intro:
-      "Ropa de abrigo hecha con intención. Cada pieza comienza con una conversación sobre el ajuste, la tela y la manera en que una prenda debe sentirse.",
+      "Phoebe O'Gorman es una firma de moda independiente basada en el diseño meditado, la artesanía de calidad y la construcción cuidadosa de cada prenda.",
+    home_intro_secondary:
+      "La primera colección está actualmente en desarrollo y se lanzará en cantidades limitadas a través de minoristas seleccionados y en línea.",
     home_cta_store: "Tienda",
 
-    bio_kicker: "Sobre Phoebe",
-    bio_heading: "El oficio primero",
-    bio_body:
-      "Phoebe O'Gorman es diseñadora de moda afincada en Londres, especializada en chaquetas y abrigos a medida. Formada en patronaje y confección, trabaja pieza a pieza — desde el primer prototipo hasta la costura final. Su trabajo se sitúa en la intersección entre estructura y suavidad: siluetas precisas pensadas para llevarse, no sólo para admirarse.",
+    retailers_heading: "Minoristas y puntos de venta",
+    retailers_body: "¿Te interesa distribuir Phoebe O'Gorman?",
+    retailers_cta: "Consulta sobre venta al por mayor",
 
-    gallery_heading: "La colección",
+    gallery_heading: "Galería",
     gallery_image_alt_prefix: "Chaqueta de Phoebe O'Gorman",
 
     store_kicker: "Tienda",
@@ -139,8 +195,27 @@ export const translations: Record<Locale, Translations> = {
       "La tienda aún no está abierta. Las piezas aparecerán aquí cuando la colección esté lista.",
     store_back_home: "Volver",
 
+    confirmed_meta_title: "Suscripción confirmada — Phoebe O'Gorman",
+    confirmed_meta_description: "Tu suscripción al newsletter está confirmada.",
+    confirmed_kicker: "Newsletter",
+    confirmed_title: "Ya estás dentro",
+    confirmed_intro:
+      "Gracias por confirmar tu correo. Te escribiremos en cuanto haya novedades.",
+
     coming_soon_label: "En preparación",
     coming_soon_note: "Escríbenos",
+
+    newsletter_heading: "Registra tu interés",
+    newsletter_intro:
+      "Sé la primera persona en conocer la colección, el lanzamiento y la disponibilidad.",
+    newsletter_email_label: "Correo electrónico",
+    newsletter_email_placeholder: "Correo electrónico",
+    newsletter_submit: "Registra tu interés",
+    newsletter_submitting: "Enviando…",
+    newsletter_success_heading: "Ya casi está",
+    newsletter_success_body:
+      "Revisa tu correo y confirma tu email para completar la suscripción.",
+    newsletter_error_generic: "Algo ha salido mal. Inténtalo de nuevo.",
 
     footer_rights: "Todos los derechos reservados.",
 
@@ -170,4 +245,15 @@ export function localeHomePath(locale: Locale): string {
 /** "/store/" for the default locale, "/es/store/" otherwise. */
 export function localeStorePath(locale: Locale): string {
   return `${localePrefix(locale)}/store/`;
+}
+
+/**
+ * "/newsletter/confirmed/" for the default locale, "/es/newsletter/confirmed/"
+ * otherwise. Paste this URL into MailerLite's form settings, under
+ * Double opt-in -> Confirmation thank you page -> "Or use your own landing
+ * page", so subscribers land back on the site after clicking the
+ * confirmation link in their email.
+ */
+export function localeConfirmedPath(locale: Locale): string {
+  return `${localePrefix(locale)}/newsletter/confirmed/`;
 }

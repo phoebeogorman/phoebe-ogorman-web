@@ -29,13 +29,7 @@ const images = [
 ---
 
 <section class="gallery-section" aria-labelledby="gallery-heading">
-  <header class="gallery-header po-container">
-    <div class="gallery-header-title">
-      <p class="kicker">{strings.bio_kicker}</p>
-      <h2 id="gallery-heading" class="gallery-title">{strings.bio_heading}</h2>
-    </div>
-    <p class="copy gallery-bio">{strings.bio_body}</p>
-  </header>
+  <h2 id="gallery-heading" class="gallery-heading">{strings.gallery_heading}</h2>
 
   <ul class="gallery-grid" role="list">
     {
@@ -62,38 +56,14 @@ const images = [
     padding-bottom: clamp(4rem, 10vw, 8rem);
   }
 
-  .gallery-header {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: clamp(2.5rem, 5vw, 4rem);
-  }
-
-  @media (min-width: 768px) {
-    .gallery-header {
-      grid-template-columns: 1fr 1fr;
-      align-items: end;
-      gap: clamp(2rem, 5vw, 4rem);
-    }
-  }
-
-  .gallery-header-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .gallery-title {
+  .gallery-heading {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     line-height: 1.05em;
     letter-spacing: -0.015em;
-    margin: 0;
-  }
-
-  .gallery-bio {
-    max-width: 48ch;
+    margin: 0 0 clamp(2rem, 4vw, 3rem) 0;
+    padding-inline: var(--container-pad);
   }
 
   .gallery-grid {

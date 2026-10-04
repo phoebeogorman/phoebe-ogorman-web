@@ -1,0 +1,36 @@
+---
+/**
+ * Landing page for the MailerLite double opt-in confirmation link.
+ *
+ * Paste this page's URL into the form's Overview -> Double opt-in ->
+ * Confirmation thank you page -> "Or use your own landing page" so
+ * subscribers return to the site after confirming their email, instead of
+ * MailerLite's own generic thank-you page. Editing that redirect requires a
+ * paid MailerLite plan; on the free plan this page simply goes unused.
+ */
+import Layout from "../../layouts/Layout.astro";
+import ComingSoon from "../../components/ComingSoon.astro";
+import { localeHomePath, t } from "../../i18n/translations";
+
+const locale = "en" as const;
+const strings = t(locale);
+---
+
+<Layout
+  locale={locale}
+  canonicalPath="/newsletter/confirmed/"
+  englishPath="/newsletter/confirmed/"
+  spanishPath="/es/newsletter/confirmed/"
+  title={strings.confirmed_meta_title}
+  description={strings.confirmed_meta_description}
+>
+  <ComingSoon
+    locale={locale}
+    kicker={strings.confirmed_kicker}
+    title={strings.confirmed_title}
+    intro={strings.confirmed_intro}
+    linkHref={localeHomePath(locale)}
+    linkLabel={strings.store_back_home}
+    alternateHref="/es/newsletter/confirmed/"
+  />
+</Layout>
