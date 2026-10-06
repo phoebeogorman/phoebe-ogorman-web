@@ -83,7 +83,8 @@ export interface Translations {
  * Locale independent, hence outside the translations object.
  */
 export const contact = {
-  email: "info@phoebeogorman.co.uk",
+  email: "info@phoebeogorman.com",
+  wholesaleEmail: "wholesale@phoebeogorman.com",
   instagram: "https://www.instagram.com/phoebeogorman/",
   instagramHandle: "@phoebeogorman",
 } as const;
